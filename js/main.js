@@ -172,19 +172,23 @@ $('#contact-link').click(function(){
 $(document).on('input', '#name', function(){
     let condition = /^[a-zA-z]*$/.test($(this).val());
     $(this).next().removeClass(condition ? 'd-block' : 'd-none').addClass(condition ? 'd-none' : 'd-block')
+    formValidation();
 })
 
 $(document).on('input', '#email', function(){
     let condition = /^[a-zA-z]*@[a-zA-z]{3,}\.[a-zA-z]{3,}$/.test($(this).val());
     $(this).next().removeClass(condition ? 'd-block' : 'd-none').addClass(condition ? 'd-none' : 'd-block');
+    formValidation();
 })
 $(document).on('input', '#phone', function(){
     let condition = /^[0-9]{11,12}$/.test($(this).val());
     $(this).next().removeClass(condition ? 'd-block' : 'd-none').addClass(condition ? 'd-none' : 'd-block');
+    formValidation();
 })
 $(document).on('input', '#age', function(){
     let condition = ($(this).val() < 100);
     $(this).next().removeClass(condition ? 'd-block' : 'd-none').addClass(condition ? 'd-none' : 'd-block');
+    formValidation();
 })
 $(document).on('input', '#password', function(){
     let condition1 = $(this).val().length >= 8;
@@ -192,8 +196,34 @@ $(document).on('input', '#password', function(){
     let condition3 = $(this).val().match(/\d/);
     $(this).next().removeClass((condition1 && condition2 && condition3) ? 'd-block' : 'd-none').addClass((condition1 && condition2 && condition3) ? 'd-none' : 'd-block');
 
+    formValidation();
 })
 $(document).on('input', '#password_confirmation', function(){
     let condition = $(this).val() == $('#password').val();
     $(this).next().removeClass(condition ? 'd-block' : 'd-none').addClass(condition ? 'd-none' : 'd-block');
+    formValidation();
 })
+
+function formValidation(){
+    let nameInput = $('#name');
+    let emailInput = $('#email');
+    let phoneInput = $('#phone');
+    let ageInput = $('#age');
+    let passwordInput = $('#password');
+    let passwordConfirmationInput = $('#password_confirmation');
+
+    let nameCondition = /^[a-zA-z]*$/.test(nameInput.val());
+    let emailCondition = /^[a-zA-z]*@[a-zA-z]{3,}\.[a-zA-z]{3,}$/.test(emailInput.val());
+    let phoneCondition = /^[0-9]{11,12}$/.test(phoneInput.val());
+    let ageCondition = (ageInput.val() < 100);
+    let passwordCondition1 = passwordInput.val().length >= 8;
+    let passwordCondition2 = passwordInput.val().match(/[a-zA-Z]/);
+    let passwordCondition3 = passwordInput.val().match(/\d/);
+    let passwordConfirmationCondition = passwordConfirmationInput.val() == $('#password').val()
+    console.log(nameCondition , emailCondition , phoneCondition , ageCondition , passwordCondition1 , passwordCondition2 , passwordCondition3 , passwordConfirmationCondition);
+    if(nameCondition && emailCondition && phoneCondition && ageCondition && passwordCondition1 && passwordCondition2 && passwordCondition3 && passwordConfirmationCondition){
+        $('#submit').removeAttr('disabled');
+    } else {
+        $('#submit').attr('disabled','disabled');
+    }
+}

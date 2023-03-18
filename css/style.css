@@ -1,0 +1,14 @@
+.overlay {
+    transition: all 0.5s;
+}
+.has-overlay:hover .overlay {
+    top: 0 !important;
+}
+
+.form-control::placeholder{
+    color: #6c757d;
+}
+
+.meal-card, .category-card, .area-card, .ingredient-card {
+    cursor: pointer;
+}
